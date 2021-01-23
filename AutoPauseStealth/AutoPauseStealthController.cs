@@ -54,7 +54,7 @@ namespace AutoPauseStealth
                     }
                 }
 
-                Invoke("StopStabilityCheckPeriod", PluginSettings.Instance.MaxWaitingTime);
+                Invoke("StopStabilityCheckPeriod", PluginSettings.instance.MaxWaitingTime);
             }
             else
                 b_inGame = false;
@@ -99,7 +99,7 @@ namespace AutoPauseStealth
         {
             Logger.log?.Info($"StabilityCheckPeriod over, resuming game");
             StabilityPeriodActive = false;
-            if (PluginSettings.Instance.ReloadOnFailStab)
+            if (PluginSettings.instance.ReloadOnFailStab)
                 RestartController.RestartLevel();
             else
             {
@@ -114,10 +114,10 @@ namespace AutoPauseStealth
             {
                 f_fps = 1.0f / Time.deltaTime;
 
-                if (f_fps > PluginSettings.Instance.FpsThresold)
+                if (f_fps > PluginSettings.instance.FpsThresold)
                 {
                     f_stabilityTimer += Time.deltaTime;
-                    if (f_stabilityTimer >= PluginSettings.Instance.StabilityDurationCheck)
+                    if (f_stabilityTimer >= PluginSettings.instance.StabilityDurationCheck)
                     {
                         Logger.log?.Info($"Initialization Lag finished, resuming game");
                         CancelInvoke("StopStabilityCheckPeriod");

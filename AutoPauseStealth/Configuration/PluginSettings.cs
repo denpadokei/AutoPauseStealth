@@ -1,14 +1,12 @@
-﻿using BeatSaberMarkupLanguage.Attributes;
+﻿using AutoPauseStealth.Configuration;
+using BeatSaberMarkupLanguage.Attributes;
 using IPA.Config.Stores;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace AutoPauseStealth
 {
-    class PluginSettings
+    public class PluginSettings : PersistentSingleton<PluginSettings>
     {
-        public static PluginSettings Instance { get; set; }
-
         private float DetermineMinFPSSub()
         {
             float hrmFrameRate = UnityEngine.XR.XRDevice.refreshRate;
@@ -20,7 +18,7 @@ namespace AutoPauseStealth
             return UnityEngine.Mathf.Round(hrmFrameRate) - 5.0f;
         }
 
-        public void Awake() // Non Unity
+        private void Awake()
         {
             if (FpsThresold == 0.0f)
                 FpsThresold = DetermineMinFPSSub();
@@ -28,16 +26,32 @@ namespace AutoPauseStealth
         }
 
         [UIValue("fpsThresold")]
-        public float FpsThresold { get; set; } = 0.0f;
+        public float FpsThresold
+        {
+            get => PluginConfig.Instance.FpsThresold;
+            set => PluginConfig.Instance.FpsThresold = value;
+        }
 
         [UIValue("stabilityDurationCheck")]
-        public float StabilityDurationCheck { get; set; } = 0.3f;
+        public float StabilityDurationCheck
+        {
+            get => PluginConfig.Instance.StabilityDurationCheck;
+            set => PluginConfig.Instance.StabilityDurationCheck = value;
+        }
 
         [UIValue("maxWaitingTime")]
-        public float MaxWaitingTime { get; set; } = 5.0f;
+        public float MaxWaitingTime
+        {
+            get => PluginConfig.Instance.MaxWaitingTime;
+            set => PluginConfig.Instance.MaxWaitingTime = value;
+        }
 
         [UIValue("reloadOnFailStab")]
-        public bool ReloadOnFailStab { get; set; } = false;
+        public bool ReloadOnFailStab
+        {
+            get => PluginConfig.Instance.ReloadOnFailStab;
+            set => PluginConfig.Instance.ReloadOnFailStab = value;
+        }
 
         [UIValue("RecommendedFpsThresold")]
         public string RecommendedFpsThresold;
