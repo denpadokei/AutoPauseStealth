@@ -122,7 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BuildTargets.targets" />
-    <None Include=".gitignore" />
     <EmbeddedResource Include="Views\settings.bsml" />
   </ItemGroup>
   <ItemGroup />
